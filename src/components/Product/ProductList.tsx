@@ -25,7 +25,7 @@ const ProductList: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState<string>('');
     const [searchInput, setSearchInput] = useState<string>('');
 
-    const capitalizeFirstLetter = (input: string): string => input.replaceAll(/\b\w/g, (char) => char.toUpperCase());
+    const firstLetter = (input: string): string => input.replaceAll(/\b\w/g, (char) => char.toUpperCase());
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -36,7 +36,7 @@ const ProductList: React.FC = () => {
             const sortOrder = sortOption === SortOption.PRICE_HIGH_TO_LOW || sortOption === SortOption.OLDEST ? 'desc' : 'asc';
             try {
                 const response = await fetch(
-                    `https://ma-backend-api.mocintra.com/api/v1/products?limit=${productsPerPage}&offset=${offset}&title=${capitalizeFirstLetter(searchQuery.toLowerCase())}&categoryId=${categoryIds}&&sortField=${sortField}&sortOrder=${sortOrder}`,
+                    `https://ma-backend-api.mocintra.com/api/v1/products?limit=${productsPerPage}&offset=${offset}&title=${firstLetter(searchQuery.toLowerCase())}&categoryId=${categoryIds}&&sortField=${sortField}&sortOrder=${sortOrder}`,
                 );
                 const data = await response.json();
 
