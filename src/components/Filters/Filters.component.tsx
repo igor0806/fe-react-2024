@@ -3,12 +3,13 @@ import React from 'react';
 import CustomSelect from '@/components/Filters/CustomSelect.component';
 import CategoryFilterButtons from '@/components/Filters/FilterButton.component.tsx';
 import SearchInput from '@/components/Filters/SearchInput.component.tsx';
-import type { Category } from '@/constants/filtersCategory.ts';
 import type { SortOption } from '@/constants/filtersSortOption.ts';
+import type { Category } from '@/Models/Category';
 
 import styles from './Filters.module.css';
 
 interface FiltersComponentProps {
+    categories: Category[];
     selectedCategories: Category[];
     sortOption: SortOption;
     searchQuery: string;
@@ -18,6 +19,7 @@ interface FiltersComponentProps {
     handleSearch: () => void;
 }
 export const FiltersComponent: React.FC<FiltersComponentProps> = ({
+    categories,
     selectedCategories,
     sortOption,
     searchQuery,
@@ -31,22 +33,14 @@ export const FiltersComponent: React.FC<FiltersComponentProps> = ({
             <section className={styles.filterFlex}>
                 <SearchInput searchQuery={searchQuery} setSearchQuery={setSearchQuery} handleSearch={handleSearch} />
                 <div className={styles.rightFlex}>
-                    <CategoryFilterButtons selectedCategories={selectedCategories} handleCategorySelect={handleCategorySelect} />
+                    <CategoryFilterButtons
+                        categories={categories}
+                        selectedCategories={selectedCategories}
+                        handleCategorySelect={handleCategorySelect}
+                    />
                     <div className={styles.sortFlex}>
                         <p className={styles.sortBy}>Sort by:</p>
                         <CustomSelect value={sortOption} onChange={handleSortSelect} />
-                        {/* <select*/}
-                        {/*    className={styles.sortSelect}*/}
-                        {/*    name="sortOption"*/}
-                        {/*    id="sortOption"*/}
-                        {/*    value={sortOption}*/}
-                        {/*    onChange={(event) => handleSortSelect(event.target.value as SortOption)}*/}
-                        {/* >*/}
-                        {/*    <option value={SortOption.PRICE_HIGH_TO_LOW}>Price (High - Low)</option>*/}
-                        {/*    <option value={SortOption.PRICE_LOW_TO_HIGH}>Price (Low - High)</option>*/}
-                        {/*    <option value={SortOption.NEWEST}>Newest</option>*/}
-                        {/*    <option value={SortOption.OLDEST}>Oldest</option>*/}
-                        {/* </select>*/}
                     </div>
                 </div>
             </section>

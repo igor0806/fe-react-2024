@@ -26,6 +26,7 @@
   --pagination-hover-bg: rgba(201, 56, 9, 0);
   --pagination-text: #111;
   --pagination-border-color: #F1F1F1 ;
+  --loader: #6565;
 }
 
 .darkTheme {
@@ -40,6 +41,7 @@
   --active-button: #EF4934;
   --pagination-text: #FFF;
   --pagination-border-color: #656565 ;
+  --loader: #FFF;
 }
 
 .darkTheme .pageButton,
