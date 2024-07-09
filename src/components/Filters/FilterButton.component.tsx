@@ -1,35 +1,35 @@
 import React from 'react';
 
-import { Category } from '@/constants/filtersCategory.ts';
+import type { Category } from '@/Models/Category';
 
 import styles from './Filters.module.css';
 
 interface CategoryFilterButtonsProps {
+    categories: Category[];
     selectedCategories: Category[];
     handleCategorySelect: (category: Category) => void;
 }
 
-const CategoryFilterButtons: React.FC<CategoryFilterButtonsProps> = ({ selectedCategories, handleCategorySelect }) => (
-    <div className={styles.filterButtonsFlex}>
-        <button
-            className={`${styles.filterButton} ${selectedCategories.includes(Category.ELECTRONICS) ? styles.active : ''}`}
-            onClick={() => handleCategorySelect(Category.ELECTRONICS)}
-        >
-            Electronics
-        </button>
-        <button
-            className={`${styles.filterButton} ${selectedCategories.includes(Category.SHOES) ? styles.active : ''}`}
-            onClick={() => handleCategorySelect(Category.SHOES)}
-        >
-            Shoes
-        </button>
-        <button
-            className={`${styles.filterButton} ${selectedCategories.includes(Category.CLOTHES) ? styles.active : ''}`}
-            onClick={() => handleCategorySelect(Category.CLOTHES)}
-        >
-            Clothes
-        </button>
-    </div>
-);
+const CategoryFilterButtons: React.FC<CategoryFilterButtonsProps> = ({ categories, selectedCategories, handleCategorySelect }) => {
+    const limitedCategories = categories.slice(0, 3);
+
+    return (
+        <div className={styles.filterButtonsFlex}>
+            {limitedCategories && limitedCategories.length > 0 ? (
+                limitedCategories.map((category) => (
+                    <button
+                        key={category.id}
+                        className={`${styles.filterButton} ${selectedCategories.includes(category) ? styles.active : ''}`}
+                        onClick={() => handleCategorySelect(category)}
+                    >
+                        {category.name}
+                    </button>
+                ))
+            ) : (
+                <p>No categories available</p>
+            )}
+        </div>
+    );
+};
 
 export default CategoryFilterButtons;
